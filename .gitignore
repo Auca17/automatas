@@ -1,0 +1,16 @@
+# Dataset — demasiado grande para GitHub (190MB > 100MB límite)
+# Colocar el archivo manualmente en la carpeta raíz del proyecto
+export-2019-to-now-v4.csv
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Output de la app
+*.xlsx
+*.log
