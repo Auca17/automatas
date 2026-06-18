@@ -24,7 +24,7 @@ PATRONES: dict[str, re.Pattern] = {
     # [0-9A-Fa-f]+ → uno o más dígitos hex (mayúsculas o minúsculas)
     # -            → guión literal separador
     # [0-9A-Fa-f]+ → segundo segmento hex
-    "ID_Sesion": re.compile(r"^[0-9A-Fa-f]+-[0-9A-Fa-f]+$"),
+    "ID_Sesion": re.compile(r"^[0-9A-Fa-f]+-?[0-9A-Fa-f]+$"),
 
     # ID_Conexion: exactamente 16 caracteres hexadecimales en minúsculas
     # (ej: "d6104707df0cd315")

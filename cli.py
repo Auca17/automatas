@@ -43,9 +43,6 @@ def pedir_ap(aps: list[str]) -> str:
 # Flujo principal
 
 def main():
-    print("=" * 60)
-    print("  Sistema de Seguimiento de Conexiones Wi-Fi (APs)")
-    print("=" * 60)
 
     # 1. Cargar CSV
     ruta = pedir_ruta_csv()
@@ -69,7 +66,7 @@ def main():
 
     # 3. Rango de fechas
     print()
-    desde = pedir_fecha("Fecha desde (2020-30-20)")
+    desde = pedir_fecha("Fecha desde (2020-12-20)")
     hasta = pedir_fecha("Fecha hasta (2021-12-31)")
     if desde > hasta:
         print(" X 'Fecha desde' no puede ser posterior a 'Fecha hasta'.")

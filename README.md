@@ -30,7 +30,7 @@ Esta herramienta es sumamente útil para administradores de red e infraestructur
 
 ## 2. Explicación de la Aplicación Desarrollada
 
-La aplicación cuenta con una **arquitectura modular** en Python que divide las responsabilidades en componentes independientes. Se puede ejecutar mediante una **Interfaz Gráfica de Usuario (GUI)** construida en Tkinter, o una **Interfaz de Línea de Comandos (CLI)** interactiva.
+La aplicación cuenta con una **arquitectura modular** en Python que divide las responsabilidades en componentes independientes. Se puede ejecutar mediante una **Interfaz de Línea de Comandos (CLI)** interactiva.
 
 ### Componentes del Sistema
 
