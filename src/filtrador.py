@@ -1,6 +1,4 @@
 """
-src/filtrador.py
-================
 Lógica de filtrado sobre el DataFrame de registros válidos.
 
 Operaciones disponibles:
@@ -12,7 +10,6 @@ validado YYYY-MM-DD garantiza que el orden alfabético = orden cronológico.
 """
 
 import pandas as pd
-
 
 def obtener_aps(df: pd.DataFrame) -> list[str]:
     """
@@ -63,7 +60,6 @@ def filtrar(
     )
 
     return df[mascara].copy()
-
 
 def estadisticas(df_resultado: pd.DataFrame) -> dict:
     """

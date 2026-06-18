@@ -1,6 +1,4 @@
 """
-src/patrones.py
-===============
 Expresiones regulares compiladas para validación de campos del CSV.
 
 Se usan re.compile() para que las expresiones se compilen una sola vez
@@ -12,9 +10,7 @@ el valor completo coincida (equivalente a ^...$).
 
 import re
 
-# ---------------------------------------------------------------------------
 # Patrones compilados
-# ---------------------------------------------------------------------------
 
 PATRONES: dict[str, re.Pattern] = {
 
@@ -32,7 +28,7 @@ PATRONES: dict[str, re.Pattern] = {
 
     # ID_Conexion: exactamente 16 caracteres hexadecimales en minúsculas
     # (ej: "d6104707df0cd315")
-    "ID_Conexion": re.compile(r"^[0-9a-f]{16}$"),
+    "ID_Conexion": re.compile(r"^[0-9A-Fa-f]{16}$"),
 
     # Usuario: alfanumérico, guiones, puntos y underscores
     # (ej: "invitado-deca", "JTaniasdu", "user.name_01")

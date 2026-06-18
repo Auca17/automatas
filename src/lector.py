@@ -1,6 +1,4 @@
 """
-src/lector.py
-=============
 Lectura del CSV en modo streaming y validación campo a campo.
 
 Estrategia para archivo grande (~190MB, ~1M filas):
@@ -21,7 +19,6 @@ CHUNK_SIZE = 10_000
 
 # Columnas del DataFrame resultante (mismo orden que NOMBRES_CAMPOS)
 COLUMNAS_DF = NOMBRES_CAMPOS  # 16 campos
-
 
 def procesar_csv(
     ruta: str,

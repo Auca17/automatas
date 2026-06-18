@@ -1,6 +1,4 @@
 """
-src/validador.py
-================
 Validación campo a campo de cada fila del CSV usando expresiones regulares.
 
 El módulo `re` es CENTRAL: cada campo se valida con patron.fullmatch(valor),
@@ -16,10 +14,8 @@ Criterios de validación:
 import re
 from src.patrones import PATRONES
 
-# ---------------------------------------------------------------------------
 # Definición de reglas de validación
 # Tupla: (nombre_display, clave_patron, índice_csv, obligatorio)
-# ---------------------------------------------------------------------------
 
 REGLAS: list[tuple[str, str, int, bool]] = [
     ("ID",              "ID",            0,  True),
@@ -44,10 +40,7 @@ REGLAS: list[tuple[str, str, int, bool]] = [
 # Nombres internos de los campos (mismo orden que REGLAS)
 NOMBRES_CAMPOS: list[str] = [r[0] for r in REGLAS]
 
-
-# ---------------------------------------------------------------------------
 # Función principal de validación
-# ---------------------------------------------------------------------------
 
 def validar_fila(fila: list[str]) -> tuple[dict | None, str | None]:
     """
@@ -83,11 +76,9 @@ def validar_fila(fila: list[str]) -> tuple[dict | None, str | None]:
                 errores.append(f"{nombre}: campo vacío (obligatorio)")
             # Si no es obligatorio (Razon), el vacío es válido → no se agrega error
         else:
-            # ================================================================
             # USO CENTRAL DE re: se llama fullmatch() sobre el patrón compilado
             # patron.fullmatch(valor) ≡ re.fullmatch(patron.pattern, valor)
             # pero reutiliza el patrón compilado para mayor rendimiento
-            # ================================================================
             patron: re.Pattern = PATRONES[clave_patron]
             if not patron.fullmatch(valor):
                 # Truncar valores muy largos en el mensaje de error
