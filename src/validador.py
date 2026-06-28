@@ -1,15 +1,10 @@
-"""
-Validación campo a campo de cada fila del CSV usando expresiones regulares.
+# Validación campo a campo de cada fila del CSV usando expresiones regulares.
 
-El módulo `re` es CENTRAL: cada campo se valida con patron.fullmatch(valor),
-que internamente usa el motor de regex de Python.
-
-Criterios de validación:
-- Campos obligatorios vacíos → registro inválido
-- Campo que no coincide con su patrón → registro inválido
-- Razón de terminación vacía → VÁLIDO (sesión sin cierre explícito)
-- Columnas 16 y 17 → siempre ignoradas
-"""
+# Criterios de validación:
+# - Campos obligatorios vacíos → registro inválido
+# - Campo que no coincide con su patrón → registro inválido
+# - Razón de terminación vacía → VÁLIDO (sesión sin cierre explícito)
+# - Columnas 16 y 17 → siempre ignoradas
 
 import re
 from src.patrones import PATRONES
@@ -18,6 +13,7 @@ from src.patrones import PATRONES
 # Tupla: (nombre_display, clave_patron, índice_csv, obligatorio)
 
 REGLAS: list[tuple[str, str, int, bool]] = [
+#   ("Nombre del campo en el CSV", "Nombre del patrón en patrones.py", "Posición en el CSV", "¿Es obligatorio?")    
     ("ID",              "ID",            0,  True),
     ("ID_Sesion",       "ID_Sesion",     1,  True),
     ("ID_Conexion",     "ID_Conexion",   2,  True),
@@ -60,7 +56,7 @@ def validar_fila(fila: list[str]) -> tuple[dict | None, str | None]:
         else:
             print(f"Usuario: {datos['Usuario']}")
     """
-    # --- Verificar cantidad mínima de columnas ---
+    # Verificar cantidad mínima de columnas
     if len(fila) < 15:
         return None, f"Columnas insuficientes: se obtuvieron {len(fila)}, mínimo 15"
 
@@ -88,7 +84,7 @@ def validar_fila(fila: list[str]) -> tuple[dict | None, str | None]:
     if errores:
         return None, " | ".join(errores)
 
-    # --- Construir diccionario de campos validados ---
+    # Construir diccionario de campos validados
     registro: dict[str, str] = {}
     for nombre, _, idx, _ in REGLAS:
         registro[nombre] = fila[idx].strip() if idx < len(fila) else ""

@@ -1,16 +1,6 @@
-"""
-Expresiones regulares compiladas para validación de campos del CSV.
-
-Se usan re.compile() para que las expresiones se compilen una sola vez
-y sean reutilizadas en las ~15M llamadas que ocurren con 1M filas.
-
-Cada patrón usa re.fullmatch() en validador.py, lo que obliga a que
-el valor completo coincida (equivalente a ^...$).
-"""
+# Expresiones regulares compiladas para validación de campos del CSV.
 
 import re
-
-# Patrones compilados
 
 PATRONES: dict[str, re.Pattern] = {
 
@@ -23,17 +13,19 @@ PATRONES: dict[str, re.Pattern] = {
     # ID_Sesion: segmentos hexadecimales separados por guión (ej: "5AA0184E-000001CA")
     # [0-9A-Fa-f]+ → uno o más dígitos hex (mayúsculas o minúsculas)
     # -            → guión literal separador
+    # ?            → el guión es opcional
     # [0-9A-Fa-f]+ → segundo segmento hex
     "ID_Sesion": re.compile(r"^[0-9A-Fa-f]+-?[0-9A-Fa-f]+$"),
 
     # ID_Conexion: exactamente 16 caracteres hexadecimales en minúsculas
     # (ej: "d6104707df0cd315")
-    "ID_Conexion": re.compile(r"^[0-9A-Fa-f]{16}$"),
+    # {16} → exactamente 16 caracteres
+    "ID_Conexion": re.compile(r"^[0-9a-f]{16}$"),
 
     # Usuario: alfanumérico, guiones, puntos y underscores
     # (ej: "invitado-deca", "JTaniasdu", "user.name_01")
     # \w   → [a-zA-Z0-9_]
-    # .    → punto literal (dentro de clase de caracteres)
+    # .    → punto literal 
     # \-   → guión literal
     "Usuario": re.compile(r"^[\w.\-]+$"),
 

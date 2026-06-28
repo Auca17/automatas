@@ -1,16 +1,14 @@
+#Ruta para la Regi: /Users/alejandrapiquer/automatas/export-2019-to-now-v4.csv
+
 import os
 import sys
 import re
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
 
 from src.lector import procesar_csv
 from src.filtrador import obtener_aps, filtrar, estadisticas
 from src.exportador import exportar_excel, exportar_invalidos_excel
 
-# Helpers de entrada
+# Definimos funciones de inputs del usuario
 
 def pedir_ruta_csv() -> str:
     while True:
@@ -19,8 +17,8 @@ def pedir_ruta_csv() -> str:
             return ruta
         print(f" X No se encontró el archivo: {ruta}")
 
-def pedir_fecha(etiqueta: str) -> str:
-    patron = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+def pedir_fecha(etiqueta: str) -> str:      
+    patron = re.compile(r"^\d{4}-\d{2}-\d{2}$") #Usa re para chequear el formato de la fecha
     while True:
         valor = input(f"{etiqueta} (YYYY-MM-DD): ").strip()
         if patron.fullmatch(valor):
@@ -40,11 +38,9 @@ def pedir_ap(aps: list[str]) -> str:
                 return aps[idx]
         print(f" X Ingresá un número entre 1 y {len(aps)}")
 
-# Flujo principal
-
 def main():
 
-    # 1. Cargar CSV
+    # 1. Cargar CSV (esto viene de lector.py)
     ruta = pedir_ruta_csv()
     print("\nLeyendo y validando registros...")
 
@@ -52,6 +48,8 @@ def main():
         print(f"  {leidas:>10,} leídas | {validas:,} válidas | {invalidas:,} inválidas",
               end="\r")
 
+# df es un dataframe con los datos validos, 
+# invalidos es una lista de diccionarios con los datos invalidos
     df, invalidos = procesar_csv(ruta, callback_progreso=on_progreso)
     print()
     print(f"\n✔ Carga completa: {len(df):,} válidos | {len(invalidos):,} inválidos")
@@ -60,7 +58,7 @@ def main():
         print("No hay registros válidos. Revisá el archivo.")
         return
 
-    # 2. Seleccionar AP
+    # 2. Seleccionar AP (esto viene de filtrador.py)
     aps = obtener_aps(df)
     ap = pedir_ap(aps)
 
@@ -72,10 +70,11 @@ def main():
         print(" X 'Fecha desde' no puede ser posterior a 'Fecha hasta'.")
         return
 
-    # 4. Filtrar
+    # 4. Filtrar (esto tambien viene de filtrador.py)
     df_res = filtrar(df, ap, desde, hasta)
     stats = estadisticas(df_res)
 
+# Estadisticas printeadas
     print(f"\n{'─' * 60}")
     print(f"  Conexiones encontradas : {stats['total']:,}")
     print(f"  Usuarios únicos        : {stats['usuarios_unicos']:,}")
@@ -85,6 +84,7 @@ def main():
     print(f"  Tráfico salida         : {stats['trafico_out_b'] / 1_048_576:.2f} MB")
     print(f"{'─' * 60}")
 
+# Menu para el usuario
     while True:
         print("\n¿Qué deseas hacer?")
         print("  1. Exportar conexiones válidas a Excel")
@@ -95,18 +95,21 @@ def main():
 
         opcion = input("\nSeleccioná una opción: ").strip()
 
+# Exportar validos
         if opcion == "1":
             if stats["total"] > 0:
                 ruta_out = exportar_excel(df_res, ap, desde, hasta)
                 print(f"  ✔ Conexiones guardadas en: {ruta_out}")
             else:
                 print(" X No hay conexiones filtradas para exportar.")
+# Exportar invalidos
         elif opcion == "2":
             if invalidos:
                 ruta_inv = exportar_invalidos_excel(invalidos)
                 print(f"  ✔ Registros inválidos guardados en: {ruta_inv}")
             else:
                 print(" X No hay registros inválidos para exportar.")
+# Exportar validos e invalidos
         elif opcion == "3":
             if stats["total"] > 0:
                 ruta_out = exportar_excel(df_res, ap, desde, hasta)
@@ -118,6 +121,7 @@ def main():
                 print(f"  ✔ Registros inválidos guardados en: {ruta_inv}")
             else:
                 print(" X No hay registros inválidos para exportar.")
+# Mostrar los primeros 50 registros invalidos
         elif opcion == "4":
             if invalidos:
                 print(f"\n{'N° Fila':<10} {'ID':<12} Motivo")
@@ -129,6 +133,7 @@ def main():
                     print(f"  ... y {len(invalidos) - 50:,} más.")
             else:
                 print(" X No hay registros inválidos para mostrar.")
+# Salir del menu
         elif opcion == "5":
             break
         else:

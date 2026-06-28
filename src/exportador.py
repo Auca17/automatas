@@ -1,6 +1,4 @@
-"""
-Exportación de resultados a Excel sin formato ni colores.
-"""
+# Exportación de resultados a Excel sin formato ni colores.
 
 import openpyxl
 from datetime import datetime
@@ -68,9 +66,7 @@ def exportar_invalidos_excel(
     invalidos: list[dict],
     ruta: str | None = None,
 ) -> str:
-    """
-    Exporta la lista de registros inválidos a Excel sin formato.
-    """
+    
     if ruta is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         ruta = os.path.join(os.path.expanduser("~"), "Desktop", f"invalidos_{ts}.xlsx")

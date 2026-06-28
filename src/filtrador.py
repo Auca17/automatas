@@ -69,7 +69,7 @@ def estadisticas(df_resultado: pd.DataFrame) -> dict:
         df_resultado: DataFrame filtrado por filtrar()
 
     Returns:
-        Dict con métricas útiles para mostrar en la UI
+        Dict con métricas para mostrar al usuario
     """
     if df_resultado is None or df_resultado.empty:
         return {
