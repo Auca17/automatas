@@ -52,11 +52,15 @@ def filtrar(
     if df is None or df.empty:
         return pd.DataFrame(columns=df.columns if df is not None else [])
 
-    # Construir máscara booleana con tres condiciones
+    # Construir máscara booleana: AP, rango de fechas, y al menos un byte de tráfico
     mascara = (
         (df["MAC_AP"].astype(str) == mac_ap) &
         (df["Inicio_Dia"] >= fecha_desde) &
-        (df["Inicio_Dia"] <= fecha_hasta)
+        (df["Inicio_Dia"] <= fecha_hasta) &
+        (
+            (df["Input_Octects"].astype(int) > 0) |
+            (df["Output_Octects"].astype(int) > 0)
+        )
     )
 
     return df[mascara].copy()
