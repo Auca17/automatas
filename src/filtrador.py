@@ -9,7 +9,7 @@ La comparación de fechas es puramente lexicográfica porque el formato
 validado YYYY-MM-DD garantiza que el orden alfabético = orden cronológico.
 """
 
-import pandas as pd
+import pandas as pd #libreria para trabajar con excel y csv, permite hacer operaciones sobre tablas de datos
 
 def obtener_aps(df: pd.DataFrame) -> list[str]:
     """
@@ -56,7 +56,11 @@ def filtrar(
     mascara = (
         (df["MAC_AP"].astype(str) == mac_ap) &
         (df["Inicio_Dia"] >= fecha_desde) &
-        (df["Inicio_Dia"] <= fecha_hasta)
+        (df["Inicio_Dia"] <= fecha_hasta) &
+        (
+            (df["Input_Octects"].astype(int) > 0) |
+            (df["Output_Octects"].astype(int) > 0)
+        )
     )
 
     return df[mascara].copy()

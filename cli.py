@@ -1,9 +1,10 @@
 #Ruta para la Regi: /Users/alejandrapiquer/automatas/export-2019-to-now-v4.csv
+#comma separated values 
 
 import os
 import sys
 import re
-
+ #carpeta #archivo
 from src.lector import procesar_csv
 from src.filtrador import obtener_aps, filtrar, estadisticas
 from src.exportador import exportar_excel, exportar_invalidos_excel
@@ -38,7 +39,7 @@ def pedir_ap(aps: list[str]) -> str:
                 return aps[idx]
         print(f" X Ingresá un número entre 1 y {len(aps)}")
 
-def main():
+def main(): #logico principal
 
     # 1. Cargar CSV (esto viene de lector.py)
     ruta = pedir_ruta_csv()

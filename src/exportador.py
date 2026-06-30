@@ -36,7 +36,7 @@ def exportar_excel(
     if ruta is None:
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         nombre = f"conexiones_{ts}.xlsx"
-        ruta = os.path.join(os.path.expanduser("~"), "Desktop", nombre)
+        ruta = os.path.join(os.getcwd(), nombre)
 
     wb = openpyxl.Workbook(write_only=True)
     ws = wb.create_sheet("Conexiones Filtradas")
@@ -68,7 +68,7 @@ def exportar_invalidos_excel(
 ) -> str:
     
     if ruta is None:
-        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        ruta = os.path.join(os.getcwd(), f"invalidos_{ts}.xlsx")
         ruta = os.path.join(os.path.expanduser("~"), "Desktop", f"invalidos_{ts}.xlsx")
 
     wb = openpyxl.Workbook(write_only=True)

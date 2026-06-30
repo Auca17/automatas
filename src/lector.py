@@ -1,6 +1,6 @@
 #Lectura del CSV y validación campo a campo.
 
-import csv
+import csv 
 import pandas as pd # Los df son de esta libreria y son como tablas que te permiten hacer operaciones sobre ellas
 from src.validador import validar_fila, NOMBRES_CAMPOS
 

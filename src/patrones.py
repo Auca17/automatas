@@ -1,5 +1,5 @@
 # Expresiones regulares compiladas para validación de campos del CSV.
-
+    #libreria
 import re
 
 PATRONES: dict[str, re.Pattern] = {
